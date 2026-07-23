@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.sidepanel-container {
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sidepanel-container h1 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.sidepanel-container p {
+  font-size: 13px;
+  color: #666;
+}
