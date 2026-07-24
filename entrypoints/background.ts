@@ -58,7 +58,7 @@ async function fetchPostsByIds(postIds: string[]) {
   const res = await fetch(`https://www.reddit.com/api/info.json?id=${idString}`, {
     method: 'GET',
     headers: {
-      'User-Agent': 'chrome-extension:undrift:v1.0 (by /u/reesechloe_s)'
+      'User-Agent': 'chrome-extension:undrift:v1.0 (by /u/Intelligent_Newt_399)'
     },
     credentials: 'include' 
   });
