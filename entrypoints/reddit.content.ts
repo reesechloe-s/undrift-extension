@@ -80,7 +80,26 @@ function runExtraction() {
 
   console.table(cleanLogs);
 
-  // TODO: Send extracted data to background for ML scoring
-  // chrome.runtime.sendMessage({ action: "SCORE_POSTS", payload: newPosts });
+  // Extract only the string IDs for the background script
+  const postIDsToScore = newPosts.map(post => post.id);
 
+  // Send the message & handle the response
+  browser.runtime.sendMessage(
+    { action: "SCORE_POSTS", payload: postIDsToScore },
+    (response) => {
+      if (browser.runtime.lastError) {
+        console.error("[Undrift] Message passing error: ", browser.runtime.lastError.message);
+        return;
+      }
+
+      if (response && response.success) {
+        console.log("[Undrift] BG returned score data: ", response.data);
+
+        // Phase 2 ToDos
+        // match response.data back to the element in newPosts array and apply the CSS blur
+      } else {
+        console.error("⚠️[Undrift] BG failed to process posts: ", response?.error);
+      }
+    }
+  );
 }
