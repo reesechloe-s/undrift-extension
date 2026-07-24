@@ -80,12 +80,16 @@ function runExtraction() {
 
   console.table(cleanLogs);
 
-  // Extract only the string IDs for the background script
-  const postIDsToScore = newPosts.map(post => post.id);
+  // Extract only the raw data (strings), leaving the element behind so JSON serialization doesn't crash.
+  const postsDataToSend = newPosts.map(post => ({
+    id: post.id,
+    title: post.title,
+    subreddit: post.subreddit
+  }));
 
   // Send the message & handle the response
   browser.runtime.sendMessage(
-    { action: "SCORE_POSTS", payload: postIDsToScore },
+    { action: "SCORE_POSTS", payload: postsDataToSend },
     (response) => {
       if (browser.runtime.lastError) {
         console.error("[Undrift] Message passing error: ", browser.runtime.lastError.message);
