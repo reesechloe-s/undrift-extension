@@ -47,8 +47,9 @@ function findFeedContainer(): Node {
 // Prevent the browser from crashing during fast, infinite scrolling
 let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
+// Reddit loads UI elements in rapid chunks
+// This 500ms delay groups those hundreds of tiny DOM mutations into a single execution, preventing overloading CPU and crashing the browser
 function debouncedExtraction(delay = 500) {
-  // If a new mutation happens before the timer finishes, clear the clock
   if (debounceTimer) clearTimeout(debounceTimer);
 
   // Start a new countdown
@@ -57,7 +58,8 @@ function debouncedExtraction(delay = 500) {
   }, delay);
 }
 
-// Extract, clean, and log the data once the DOM settles
+
+// Extract, clean, and log the data once the DOM settles (full, uninterrupted 500ms)
 function runExtraction() {
   const newPosts = extractPosts();
 
