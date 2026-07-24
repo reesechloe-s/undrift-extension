@@ -10,6 +10,9 @@
 // Path B: Direct DOM passing
 // skips API request entirely to save bandwith, improve speed, and avoid any risk of Reddit rate-limiting the extension
 
+
+// # TODO: change USERNAME before deploying this extension
+
 export default defineBackground(() => {
   console.log("[Undrift] Background Initialized!");
 
